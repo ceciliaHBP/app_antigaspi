@@ -1,0 +1,132 @@
+import {StyleSheet} from 'react-native';
+import {colors, fonts} from '../styles/styles';
+
+const style = StyleSheet.create({
+  card_container: {
+    flexDirection: 'column',
+    width: '100%',
+    //justifyContent:'center',
+    //alignItems:'center',
+    height: 180,
+    backgroundColor: 'white',
+    // marginVertical: 10,
+    // marginHorizontal:5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  image_container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  qtyContainer: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    flexDirection: 'row',
+    width: '50%',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'lightgray',
+    opacity: 0.7,
+  },
+  increment: {
+    backgroundColor: colors.color2,
+    color: 'white',
+    width: 25,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  decrement: {
+    backgroundColor: colors.color3,
+    color: colors.color1,
+    width: 25,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  qtyText: {
+    backgroundColor: colors.color3,
+    color: colors.color1,
+    width: 25,
+    height: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  text: {
+    color: colors.color1,
+    fontWeight: '600',
+  },
+  containerTextTicker: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  viewTextTicker: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: 40,
+    backgroundColor: 'white',
+    paddingVertical: 5,
+  },
+  textTickerLibelle: {
+    fontSize: 14,
+    width: '100%',
+    color: colors.color1,
+    fontFamily: fonts.font2,
+    fontWeight: '600',
+  },
+  priceCard: {
+    fontSize: 14,
+    fontWeight: '300',
+    width: '50%',
+  },
+  priceAntigaspi: {
+    fontSize: 14,
+    width: '50%',
+    textAlign: 'right',
+  },
+  logoOffre31: {
+    width: 35,
+    height: 35,
+    resizeMode: 'contain',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  viewLogoSunSvg: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    height: 40,
+    backgroundColor: 'white',
+    paddingVertical: 5,
+  },
+  viewPrice: {
+    fontSize: 14,
+    fontWeight: '600',
+    width: '100%',
+    textAlign: 'center',
+    color: colors.color2,
+  },
+  separationPrice: {
+    width: 1,
+    backgroundColor: colors.color3,
+    marginVertical: 5,
+  }
+});
+
+export {style};

@@ -1,0 +1,141 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/AntDesign.ttf",
+      "sha1": "4e77868439280fb434d4697c7b911271406c81f3"
+    },
+    {
+      "path": "assets/fonts/Entypo.ttf",
+      "sha1": "12b5670eb178138f77285d5f2c246d3cc5fa67d6"
+    },
+    {
+      "path": "assets/fonts/EvilIcons.ttf",
+      "sha1": "91d377ea3cf47490b256c2ed081704a7dabdae0c"
+    },
+    {
+      "path": "assets/fonts/Feather.ttf",
+      "sha1": "e6604258b1ced5efd51360875d782fca65381d47"
+    },
+    {
+      "path": "assets/fonts/FontAwesome.ttf",
+      "sha1": "13b1eab65a983c7a73bc7997c479d66943f7c6cb"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Brands.ttf",
+      "sha1": "3fa2d67cef22da5c3f3eb5730c6afbd6fecf0372"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Regular.ttf",
+      "sha1": "7d849a3981a716e2ba4a84634bc57d0b8054a6a3"
+    },
+    {
+      "path": "assets/fonts/FontAwesome5_Solid.ttf",
+      "sha1": "c1b9fae262f42868c075ac865a8ab34920e20a2c"
+    },
+    {
+      "path": "assets/fonts/Fontisto.ttf",
+      "sha1": "c090a3ec96a3f1bb9b615c2f3f204ce0dcdcdbc3"
+    },
+    {
+      "path": "assets/fonts/Foundation.ttf",
+      "sha1": "4b2bce6c792493a4a5716b6fec2dbefe89492c3f"
+    },
+    {
+      "path": "assets/fonts/Ionicons.ttf",
+      "sha1": "b5281fbfa43129abc3e412dd938cfcf0b77de999"
+    },
+    {
+      "path": "assets/fonts/MaterialCommunityIcons.ttf",
+      "sha1": "4c2a838b00dbb5e8bb1b368fce0de534e8eb241c"
+    },
+    {
+      "path": "assets/fonts/MaterialIcons.ttf",
+      "sha1": "1943803d652750c8ec60415f1e57401c70e72d25"
+    },
+    {
+      "path": "assets/fonts/Montserrat Black 900.ttf",
+      "sha1": "b7553074657a5fff0d17afcd5a47c99116c72854"
+    },
+    {
+      "path": "assets/fonts/Montserrat Black Italic 900.ttf",
+      "sha1": "39dfc95afd317c6e3daf04f6106cf32e22b2951b"
+    },
+    {
+      "path": "assets/fonts/Montserrat Bold 700.ttf",
+      "sha1": "3320ff5514b32565b0396de4f2064ce17ec9eea4"
+    },
+    {
+      "path": "assets/fonts/Montserrat Bold Italic 700.ttf",
+      "sha1": "3e4f84f047452d1d3b262a4db5547b4baf390de8"
+    },
+    {
+      "path": "assets/fonts/Montserrat ExtraBold 800.ttf",
+      "sha1": "6c958d968de367f05f7a6b790609f22076b3910c"
+    },
+    {
+      "path": "assets/fonts/Montserrat ExtraBold Italic 800.ttf",
+      "sha1": "39171d7f4db509f392b1d49696bc0b7e0f1f46b8"
+    },
+    {
+      "path": "assets/fonts/Montserrat ExtraLight 275.ttf",
+      "sha1": "4925dcc1cf7564cd18d10bf5fb4ced7bc77e661c"
+    },
+    {
+      "path": "assets/fonts/Montserrat ExtraLight Italic 275.ttf",
+      "sha1": "a23d10b7f93144b877fd53445ca33ee938498ff1"
+    },
+    {
+      "path": "assets/fonts/Montserrat Italic 400.ttf",
+      "sha1": "2ff6c8d3a64ccd9f3c85dc7eef16a818af7075bc"
+    },
+    {
+      "path": "assets/fonts/Montserrat Light 300.ttf",
+      "sha1": "08e510137064a3c9859b71cff5b999fe8c351e67"
+    },
+    {
+      "path": "assets/fonts/Montserrat Light Italic 300.ttf",
+      "sha1": "1224ee16a3a9807ca5e89fba1c8fd4132565735b"
+    },
+    {
+      "path": "assets/fonts/Montserrat Medium 500.ttf",
+      "sha1": "ca42fe10fa893f390472859405c7564095e4260f"
+    },
+    {
+      "path": "assets/fonts/Montserrat Medium Italic 500.ttf",
+      "sha1": "2880cdec269b3e70365a0a41a39e16c0608d1ad5"
+    },
+    {
+      "path": "assets/fonts/Montserrat SemiBold 600.ttf",
+      "sha1": "4ef29a9163b56df34a3486b98b24be3a3d0cdca6"
+    },
+    {
+      "path": "assets/fonts/Montserrat SemiBold Italic 600.ttf",
+      "sha1": "2ace9e4e1e9fd4d82f9de86d5acf1407518e0c3f"
+    },
+    {
+      "path": "assets/fonts/Montserrat Thin 250.ttf",
+      "sha1": "cee83df1ec6934794d570d12e94397d5b5ca5fb5"
+    },
+    {
+      "path": "assets/fonts/Montserrat Thin Italic 250.ttf",
+      "sha1": "62dcb447998b27a83872d75439ce35124fe08aa7"
+    },
+    {
+      "path": "assets/fonts/Octicons.ttf",
+      "sha1": "56acefc0731f35ee23b195b1c8cb5fa94a0db97b"
+    },
+    {
+      "path": "assets/fonts/Postino Italic.ttf",
+      "sha1": "1ca31a0660021920d101b0916567640a083a5a52"
+    },
+    {
+      "path": "assets/fonts/SimpleLineIcons.ttf",
+      "sha1": "9ffb81a5a11112e292f2cc323e98486bad597599"
+    },
+    {
+      "path": "assets/fonts/Zocial.ttf",
+      "sha1": "6a48a962b06cc3acbdfd61df0d9a34744eea5e8d"
+    }
+  ]
+}
