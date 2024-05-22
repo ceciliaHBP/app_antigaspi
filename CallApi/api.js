@@ -240,13 +240,13 @@ export const updateAntigaspiStock = async item => {
           quantityPurchased: item.qty,
         },
       );
-
       if (response.status === 200) {
-        console.log(
-          'Stock antigaspi mis à jour avec succès pour le produit',
-          item.libelle,
-        );
+        // console.log(
+        //   'Stock antigaspi mis à jour avec succès pour le produit',
+        //   item.libelle,
+        // );
       }
+      return response.data.newStock; 
     } catch (error) {
       console.error(
         'Erreur lors de la mise à jour du stock antigaspi pour le produit',
@@ -542,7 +542,19 @@ export const hourAntigaspi = async () => {
     // console.log('response', response.data.accessible)
     return response.data.accessible;
   } catch (error) {
-    console.error("Une erreur s'est produite, error products :", error);
+    console.error("Une erreur s'est produite, error hour antigaspi :", error);
+    throw error; 
+  }
+};
+
+export const verifStockAntiGaspi = async (productId) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/verifStockAntiGaspi/${productId}`,
+    );
+    return response.data.stockantigaspi;
+  } catch (error) {
+    console.error("Une erreur s'est produite, error stock antigaspi :", error);
     throw error; 
   }
 };
