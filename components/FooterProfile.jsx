@@ -72,8 +72,8 @@ const FooterProfile = () => {
   };
 
   const openHome = () => {
-    //retour en position page haute
-    navigation.navigate('home', {shouldScrollToTop: true});
+    //retour en position page haute et refreshProducts
+    navigation.navigate('home', {shouldScrollToTop: true, shouldReload: true });
   };
   const openOrders = () => {
     navigation.navigate('orders');
