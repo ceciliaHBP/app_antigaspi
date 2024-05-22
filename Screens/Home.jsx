@@ -21,7 +21,7 @@ import React, {
 } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {updateUser} from '../reducers/authSlice';
-import {getCart} from '../reducers/cartSlice';
+import {getCart, getTotalCart} from '../reducers/cartSlice';
 
 import axios from 'axios';
 import FooterProfile from '../components/FooterProfile';
@@ -42,7 +42,9 @@ import {
   fetchAllProductsAntigaspi,
   getFamilyProductDetails,
   hourAntigaspi,
-  getAllStores
+  getAllStores,
+  verifStockAntiGaspi,
+  updateAntigaspiStock,
 } from '../CallApi/api';
 import {getStyle} from '../Fonctions/stylesFormule';
 import NoAntigaspi from '../components/NoAntigaspi';
@@ -50,6 +52,8 @@ import ProductCard from '../components/ProductCard';
 import AddButton from '../components/AddButton';
 import NoProducts from '../components/NoProducts';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
+import {incrementhandler} from '../Fonctions/fonctions';
+import {useCountdown} from '../components/CountdownContext';
 
 const Home = ({navigation}) => {
   const [role, setRole] = useState('');
@@ -77,6 +81,9 @@ const Home = ({navigation}) => {
   const user = useSelector(state => state.auth.user);
   const cart = useSelector(state => state.cart.cart);
 
+  const {countdown, resetCountdown} = useCountdown();
+
+
   useEffect(() => {
     const loadInitialData = async () => {
       setIsLoading(true);
@@ -95,11 +102,11 @@ const Home = ({navigation}) => {
           cartPromise,
           delayPromise,
           antigaspiPromise,
-          storesPromise
+          storesPromise,
         ]);
 
         setIsAntiGaspiAccessible(antigaspi);
-        setStore(stores)
+        setStore(stores);
         if (antigaspi) {
           const updatedStockProducts = products.filter(
             product => product.stockantigaspi >= 1,
@@ -109,7 +116,6 @@ const Home = ({navigation}) => {
             ...new Set(products.map(product => product.categorie)),
           ]);
         }
-
       } catch (error) {
         console.error(
           'Erreur lors du chargement des données initiales:',
@@ -139,13 +145,15 @@ const Home = ({navigation}) => {
   const scrollViewRef = createRef();
   const horizontalScrollViewRef = useRef(null);
 
-  //retour en haut de page au click sur bouton Home
+  //retour en haut de page au click sur bouton Home et refreshProducts
   useFocusEffect(
     React.useCallback(() => {
-      if (route.params?.shouldScrollToTop) {
-        scrollToTop();
+      if (route.params?.shouldReload) {
+        refreshProducts();
+        route.params.shouldReload = false;
       }
       if (route.params?.shouldScrollToTop) {
+        scrollToTop();
         route.params.shouldScrollToTop = false;
       }
     }, [route.params?.shouldScrollToTop]),
@@ -301,14 +309,72 @@ const Home = ({navigation}) => {
   //fin scroll onglets
 
   const handleAddToCart = async product => {
-    // console.log('produit selectionné', product);
+    // verification du stock
+    const stockAntigaspi = await verifStockAntiGaspi(product.productId);
 
-    // afficher le toast message
+    // si stock suffisant
+    if (stockAntigaspi > 0) {
+      // ajout dans le panier
+      incrementhandler(
+        user.userId,
+        product.productId,
+        1,
+        product.prix_unitaire * 0.5,
+        'antigaspi',
+        false,
+        null,
+        null,
+        null,
+        null,
+        null,
+        product.categorie,
+        null,
+        product.libelle,
+      );
+      // mise à jour du stock
+      const newStock = await updateAntigaspiStock({...product, qty: 1});
+
+      // Nouveau stock
+      if (newStock !== undefined) {
+        setProducts(prevProducts =>
+          prevProducts
+            .map(p => {
+              if (p.productId === product.productId) {
+                return {...p, stockantigaspi: newStock};
+              }
+              return p;
+            })
+            .filter(p => p.stockantigaspi > 0),
+        ); // This line ensures products with zero stock are removed
+      }
+
+      resetCountdown();
+
+      await dispatch(getCart(user.userId));
+      await dispatch(getTotalCart(user.userId));
+
+      Toast.show({
+        type: 'success',
+        text1: `Produit "${product.libelle}" ajouté au panier`,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: `Plus de stock suffisant pour "${product.libelle}" `,
+      });
+      refreshProducts();
+    }
+    // déselection du produit
     setSelectedProduct(null);
-    return Toast.show({
-      type: 'success',
-      text1: `Produit "${ product.libelle}" ajouté au panier`,
-    });
+  };
+
+  const refreshProducts = async () => {
+    try {
+      const refreshedProducts = await fetchAllProductsAntigaspi();
+      setProducts(refreshedProducts.filter(p => p.stockantigaspi > 0));
+    } catch (error) {
+      console.error('Erreur lors du rafraîchissement des produits:', error);
+    }
   };
 
   return (
@@ -566,114 +632,107 @@ const Home = ({navigation}) => {
 
               {/* si produit dispo ? affichage des produits sinon message indispo */}
 
-              {
-                isAntigaspiAccessible ? 
-                
-                
+              {isAntigaspiAccessible ? (
                 products ? (
-                <View style={styleAntigaspi.container_familleProduct}>
-                  {Object.values(
-                    products.reduce((groups, product) => {
-                      const {id_famille_produit} = product;
-                      if (!groups[id_famille_produit]) {
-                        groups[id_famille_produit] = {
-                          id_famille_produit: id_famille_produit,
-                          products: [],
-                        };
-                      }
-                      groups[id_famille_produit].products.push(product);
-                      return groups;
-                    }, {}),
-                  ).map(group => (
-                    <View
-                      key={group.id_famille_produit}
-                      onLayout={handleLayout(
-                        familyProductDetails[group.id_famille_produit],
-                      )}>
-                      <Text style={styleAntigaspi.familleProduct}>
-                        {familyProductDetails[group.id_famille_produit]}
-                      </Text>
-                      <ScrollView>
-                        <View style={styleAntigaspi.container_cards}>
-                          {group.products.map((product, index) => (
-                            <TouchableOpacity
-                              key={index}
-                              onPress={() => handleProduct(product)}
-                              activeOpacity={0.8}>
-                              <View
-                                style={StyleSheet.flatten([
-                                  getStyle(selectedProduct, product),
-                                  {
-                                    width: 170,
-                                    marginHorizontal: 5,
-                                    marginVertical: 10,
-                                  },
-                                ])}
-                                key={index}>
-                                <ProductCard
-                                  libelle={product.libelle}
-                                  key={product.productId}
-                                  id={product.productId}
-                                  index={index}
-                                  image={product.image}
-                                  prix={product.prix_unitaire}
-                                  prixSUN={product.prix_remise_collaborateur}
-                                  qty={product.qty}
-                                  stock={product.stockantigaspi}
-                                  offre={product.offre}
-                                  showButtons={false}
-                                  ingredients={product.ingredients}
-                                  showPriceSun={false}
-                                  overlayStyle={{
-                                    backgroundColor: 'transparent',
-                                  }}
-                                />
-                                {selectedProduct?.productId ===
-                                  product.productId && (
-                                  <Check color={colors.color9} />
-                                )}
+                  <View style={styleAntigaspi.container_familleProduct}>
+                    {Object.values(
+                      products.reduce((groups, product) => {
+                        const {id_famille_produit} = product;
+                        if (!groups[id_famille_produit]) {
+                          groups[id_famille_produit] = {
+                            id_famille_produit: id_famille_produit,
+                            products: [],
+                          };
+                        }
+                        groups[id_famille_produit].products.push(product);
+                        return groups;
+                      }, {}),
+                    ).map(group => (
+                      <View
+                        key={group.id_famille_produit}
+                        onLayout={handleLayout(
+                          familyProductDetails[group.id_famille_produit],
+                        )}>
+                        <Text style={styleAntigaspi.familleProduct}>
+                          {familyProductDetails[group.id_famille_produit]}
+                        </Text>
+                        <ScrollView>
+                          <View style={styleAntigaspi.container_cards}>
+                            {group.products.map((product, index) => (
+                              <TouchableOpacity
+                                key={index}
+                                onPress={() => handleProduct(product)}
+                                activeOpacity={0.8}>
                                 <View
-                                  style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                  }}>
+                                  style={StyleSheet.flatten([
+                                    getStyle(selectedProduct, product),
+                                    {
+                                      width: 170,
+                                      marginHorizontal: 5,
+                                      marginVertical: 10,
+                                    },
+                                  ])}
+                                  key={index}>
+                                  <ProductCard
+                                    libelle={product.libelle}
+                                    key={product.productId}
+                                    id={product.productId}
+                                    index={index}
+                                    image={product.image}
+                                    prix={product.prix_unitaire}
+                                    prixSUN={product.prix_remise_collaborateur}
+                                    qty={product.qty}
+                                    stock={product.stockantigaspi}
+                                    offre={product.offre}
+                                    showButtons={false}
+                                    ingredients={product.ingredients}
+                                    showPriceSun={false}
+                                    overlayStyle={{
+                                      backgroundColor: 'transparent',
+                                    }}
+                                  />
                                   {selectedProduct?.productId ===
                                     product.productId && (
-                                    <AddButton
-                                      onPress={() => handleAddToCart(product)}
-                                    />
+                                    <Check color={colors.color9} />
                                   )}
-                                </View>
+                                  <View
+                                    style={{
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                    }}>
+                                    {selectedProduct?.productId ===
+                                      product.productId && (
+                                      <AddButton
+                                        onPress={() => handleAddToCart(product)}
+                                      />
+                                    )}
+                                  </View>
 
-                                <View style={styles.stockantigaspi}>
-                                  <Cloche />
-                                  <Text style={styles.textestockantigaspi}>
-                                    {product.stockantigaspi} en stock !
-                                  </Text>
+                                  <View style={styles.stockantigaspi}>
+                                    <Cloche />
+                                    <Text style={styles.textestockantigaspi}>
+                                      {product.stockantigaspi} en stock !
+                                    </Text>
+                                  </View>
                                 </View>
-                              </View>
-                            </TouchableOpacity>
-                          ))}
-                        </View>
-                      </ScrollView>
-                    </View>
-                  ))}
-                </View>
-                )
-                : (
+                              </TouchableOpacity>
+                            ))}
+                          </View>
+                        </ScrollView>
+                      </View>
+                    ))}
+                  </View>
+                ) : (
                   <NoProducts />
                 )
-                
-              
-                : (
-                  <NoAntigaspi />
-                )
-              }
+              ) : (
+                <NoAntigaspi />
+              )}
             </ScrollView>
 
             <FooterProfile />
