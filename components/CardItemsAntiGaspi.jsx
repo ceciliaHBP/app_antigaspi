@@ -8,20 +8,12 @@ import {AntiGaspi} from '../SVG/AntiGaspi';
 
 const CartItemAntigaspi = ({
   libelle,
-  prix,
   item,
   qty,
-  prix_unitaire,
-  isFree,
-  freeCount,
   removehandler,
 }) => {
   return (
     <View style={styles.container}>
-      {/* <Image source={{ uri: `${API_BASE_URL}/${image}` }} style={styles.image} 
-    //   onPress={() => navigate.navigate("productdetails", { id })}
-    /> */}
-
       <View
         style={{
           flexDirection: 'row',
@@ -64,22 +56,14 @@ const CartItemAntigaspi = ({
             </Text>
           </View>
 
-          <Text style={styles.price}>
-            {qty} x {item.unitPrice}€
-          </Text>
-        </View>
-
-        <View style={styles.content}>
-          {
-            (isFree = 'true' && freeCount > 0 && (
-              <>
-                <Text style={{...styles.details, color: colors.color9}}>
-                  {`${freeCount} x ${libelle}`}
-                </Text>
-                <Text style={{color: colors.color9}}>+0€</Text>
-              </>
-            ))
-          }
+          <View>
+            <Text style={styles.oldPrice}>
+             {qty} x {item.unitPrice * 2}€
+            </Text>
+            <Text style={styles.price}>
+              {qty} x {item.unitPrice}€
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -89,11 +73,11 @@ const CartItemAntigaspi = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    padding:10,
+    padding: 10,
     width: 340,
-    borderRadius:5,
-    marginVertical:5,
-    backgroundColor: 'white'
+    borderRadius: 5,
+    marginVertical: 5,
+    backgroundColor: 'white',
   },
   image: {
     width: 80,
@@ -114,7 +98,13 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 14,
+    color: colors.color2,
+    fontWeight:'bold'
+  },
+  oldPrice: {
+    fontSize: 14,
     color: '#888',
+    textDecorationLine:'line-through'
   },
   actions: {
     flexDirection: 'row',
@@ -145,13 +135,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.color1,
   },
-  pastilleLibelle:{
-    flexDirection:'row',
-    alignItems:'center',
-    gap: 10
-  }
+  pastilleLibelle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
 });
 
-
 export default CartItemAntigaspi;
-
