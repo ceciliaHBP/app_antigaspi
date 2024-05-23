@@ -46,7 +46,7 @@ const CancelPage = ({navigation}) => {
               </View>
             ) : (
               <Text style={style.text2Color}>
-                Votre commande n'a pas été créée{' '}
+                Votre commande n'a pas été finalisée{' '}
               </Text>
             )}
           </View>
