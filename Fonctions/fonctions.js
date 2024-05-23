@@ -532,17 +532,13 @@ export const checkPaymentStatus = async (
       );
       const {status, transactionId, method, orderID} = response.data;
       // retour : response data {"status": "paid", "transactionId": "pi_3NOFjcGnFAjiWNhK0KP6l8Nl"}
-
       // si status paid - je stop la boucle
       if (status === 'paid') {
-        // le countdown passe a null
         countDownNull();
         navigation.navigate('success');
         clearInterval(intervalId);
-        // supprimer le panier et son contenu
-        await clearUserCart(user.userId);
+        // clearUserCart(user.userId);
         dispatch(getTotalCart(user.userId));
-        // vider le code promo
         dispatch(resetPromo());
       } else if (status === 'unpaid') {
         // si status unpaid - retour en arriere
