@@ -131,7 +131,7 @@ const Main = () => {
   const Stack = createNativeStackNavigator();
 
   const linking = {
-    prefixes: ['clickandcollect://'],
+    prefixes: ['antigaspi://'],
     config: {
       screens: {
         success: 'success',
