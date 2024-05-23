@@ -591,7 +591,7 @@ const Home = ({navigation}) => {
                   position: 'absolute',
                   top: '10%',
                   left: '10%',
-                  transform: [{translateX: -50}, {translateY: +60}],
+                  transform: [{translateX: -100}, {translateY: +60}],
                   zIndex: -1,
                 }}>
                 <LogoFond color={colors.color6} />
@@ -602,7 +602,7 @@ const Home = ({navigation}) => {
                   position: 'absolute',
                   top: '10%',
                   right: '10%',
-                  transform: [{translateX: +150}, {translateY: +500}],
+                  transform: [{translateX: +150}, {translateY: +600}],
                   zIndex: -1,
                 }}>
                 <LogoFond color={colors.color6} />
@@ -613,7 +613,7 @@ const Home = ({navigation}) => {
                   position: 'absolute',
                   top: '10%',
                   left: '10%',
-                  transform: [{translateX: -200}, {translateY: +1700}],
+                  transform: [{translateX: -200}, {translateY: +1200}],
                   zIndex: -1,
                 }}>
                 <LogoFond color={colors.color6} />
@@ -624,7 +624,7 @@ const Home = ({navigation}) => {
                   position: 'absolute',
                   top: '10%',
                   left: '10%',
-                  transform: [{translateX: +100}, {translateY: +2250}],
+                  transform: [{translateX: +100}, {translateY: +1850}],
                   zIndex: -1,
                 }}>
                 <LogoFond color={colors.color6} />
