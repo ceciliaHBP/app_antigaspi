@@ -515,14 +515,14 @@ const Panier = ({navigation}) => {
       });
       return;
     }
-    // verif du role
-    if (user.role === 'client') {
-      return Toast.show({
-        type: 'error',
-        text1: `Le Click and collect n'est pas disponible`,
-        text2: `Nous vous préviendrons très vite par email`,
-      });
-    }
+    // // verif du role
+    // if (user.role === 'client') {
+    //   return Toast.show({
+    //     type: 'error',
+    //     text1: `Le Click and collect n'est pas disponible`,
+    //     text2: `Nous vous préviendrons très vite par email`,
+    //   });
+    // }
 
     setPaiement(newPaiement);
     dispatch(setProducts(cart));
@@ -919,21 +919,21 @@ const Panier = ({navigation}) => {
                 <View style={styles.contentTotalMenu}>
                   <View>
                     <Text style={styles.boldText}>Votre total</Text>
-                    <Text style={{color: colors.color2}}>
+                    {/* <Text style={{color: colors.color2}}>
                       Total Avec
                       <Image
                         source={require('../assets/sun.jpg')}
                         style={{width: 50, height: 20, resizeMode: 'contain'}}
                       />
-                    </Text>
+                    </Text> */}
                   </View>
                   <View style={styles.contentTotalPrice}>
-                    <Text style={{color: colors.color1}}>
+                    <Text style={styles.orangeBoldText}>
                       {totalSum.toFixed(2)} €
                     </Text>
-                    <Text style={styles.orangeBoldText}>
+                    {/* <Text style={styles.orangeBoldText}>
                       {totalSumForCollabAndAntigaspi.toFixed(2)} €
-                    </Text>
+                    </Text> */}
                   </View>
                 </View>
                 <View>
