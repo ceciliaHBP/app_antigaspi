@@ -12,6 +12,14 @@ const CartItemAntigaspi = ({
   qty,
   removehandler,
 }) => {
+
+  function formatPrice(price) {
+    // Convertir price en nombre si ce n'est pas déjà un nombre
+    const numericPrice = parseFloat(price);
+    // Vérifier si numericPrice est un nombre valide et l'arrondir, sinon renvoyer "0.00"
+    return !isNaN(numericPrice) ? numericPrice.toFixed(2) : "0.00";
+  }
+  
   return (
     <View style={styles.container}>
       <View
@@ -58,10 +66,12 @@ const CartItemAntigaspi = ({
 
           <View>
             <Text style={styles.oldPrice}>
-             {qty} x {item.unitPrice * 2}€
+             {qty} x {(item.unitPrice * 2).toFixed(2)}€
             </Text>
             <Text style={styles.price}>
-              {qty} x {item.unitPrice}€
+            {/* {qty} x {item.unitPrice.toFixed(2)}€ */}
+            {qty} x {formatPrice(item.unitPrice)}€
+
             </Text>
           </View>
         </View>
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
   oldPrice: {
     fontSize: 14,
     color: '#888',
-    textDecorationLine:'line-through'
+    textDecorationLine:'line-through',
   },
   actions: {
     flexDirection: 'row',
