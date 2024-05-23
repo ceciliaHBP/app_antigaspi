@@ -450,11 +450,11 @@ const Orders = ({navigation}) => {
                 </Text>
                 <Text style={style.underlineText}>Status: {item.status}</Text>
                 <Text style={style.underlineText}>
-                  Payée: {item.paid === true ? 'Oui' : 'Non'}
+                  Payée: <Text style={style.title}>{item.paid === true ? 'Oui' : 'Non'}</Text>
                 </Text>
               </View>
               <View>
-                <Text style={style.storeTitle}>
+                <Text style={style.storeTitle} numberOfLines={2}>
                   {item.store && item.store.nom_magasin}
                 </Text>
               </View>

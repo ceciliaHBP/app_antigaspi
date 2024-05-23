@@ -138,6 +138,9 @@ const style = StyleSheet.create({
     color: colors.color1,
     fontSize: 14,
     fontWeight: 'bold',
+    width:200,
+    textAlign:'right',
+    paddingRight:20
   },
   detailsOrderTitle: {
     marginVertical: 10,
