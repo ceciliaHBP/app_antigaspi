@@ -543,7 +543,7 @@ const Orders = ({navigation}) => {
                               </Text>
                               <View style={style.orderPrices}>
                                 <Text style={style.newPrice}>
-                                  {(product.unitPrice )}€
+                                  {(product.unitPrice.toFixed(2))}€
                                 </Text>
                                 <Text style={style.newPrice}>
                                 {/* {(product.unitPrice )}€ */}
