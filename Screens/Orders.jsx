@@ -23,7 +23,6 @@ import {API_BASE_URL} from '../config';
 import {getStoreById} from '../CallApi/api';
 import ArrowDown from '../SVG/ArrowDown';
 import {AntiGaspi} from '../SVG/AntiGaspi';
-import {OffreSun} from '../SVG/OffreSun';
 
 const Orders = ({navigation}) => {
   const user = useSelector(state => state.auth.user);
@@ -131,8 +130,6 @@ const Orders = ({navigation}) => {
       </TouchableOpacity>
     </View>
   );
-
-  // fin test
 
   const handleBack = () => {
     navigation.navigate('home');
@@ -355,9 +352,6 @@ const Orders = ({navigation}) => {
       0,
     );
 
-
- 
-
     return (
       <>
         <View>
@@ -483,25 +477,15 @@ const Orders = ({navigation}) => {
             </TouchableOpacity>
           </View>
 
-          {/* sans pagination */}
-          {/* <FlatList
-            data={previousOrders}
-            renderItem={({item, index}) => renderOrder(item, index)}
-            keyExtractor={item => item.orderId.toString()}
-            ListHeaderComponent={
-              lastOrder ? <ListHeader lastOrder={lastOrder} /> : null
-            }
-          /> */}
-
-          {/* avec paganiation */}
+          {/* avec pagination */}
           <FlatList
-            data={currentOrders} // Utilisez les commandes actuelles pour la pagination
+            data={currentOrders} 
             renderItem={({item, index}) => renderOrder(item, index)}
             keyExtractor={item => item.orderId.toString()}
             ListHeaderComponent={
               lastOrder ? <ListHeader lastOrder={lastOrder} /> : null
             }
-            ListFooterComponent={renderPageNumbers} // Ajoutez le rendu des numéros de page ici
+            ListFooterComponent={renderPageNumbers} 
           />
         </SafeAreaProvider>
       ) : (
