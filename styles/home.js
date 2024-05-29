@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     gap: 5,
     paddingVertical: 5,
-    width: 110,
+    width: 120,
     justifyContent:'center',
     borderRadius:5,
     position:'absolute',
