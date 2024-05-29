@@ -272,6 +272,7 @@ export const addStockAntigaspi = async item => {
           item.productId,
         );
       }
+      return response.data.newStock; 
     } catch (error) {
       console.error(
         'Erreur lors de la mise à jour du stock antigaspi pour le produit',

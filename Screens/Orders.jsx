@@ -48,6 +48,13 @@ const Orders = ({navigation}) => {
     indexOfLastOrder,
   );
 
+  function formatPrice(price) {
+    // Convertir price en nombre si ce n'est pas déjà un nombre
+    const numericPrice = parseFloat(price);
+    // Vérifier si numericPrice est un nombre valide et l'arrondir, sinon renvoyer "0.00"
+    return !isNaN(numericPrice) ? numericPrice.toFixed(2) : "0.00";
+  }
+
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const pageNumbers = Array.from(
@@ -262,55 +269,7 @@ const Orders = ({navigation}) => {
                   } = product;
                   const key = product.id || index;
 
-                  if (type === 'formule') {
-                    return (
-                      <View key={key}>
-                        <View style={style.orderFormule}>
-                          <View>
-                            <Text style={style.title}>{product.quantity } x {libelle}</Text>
-                            {option1 && (
-                              <View style={style.optionStyle}>
-                                <Text style={style.text}>
-                                {product.qty } x {option1.libelle}
-                                </Text>
-                                <Text style={style.text}>
-                                  {/* {option1.prix_unitaire}€ */}
-                                </Text>
-                              </View>
-                            )}
-                            {option2 && (
-                              <View style={style.optionStyle}>
-                                <Text style={style.text}>
-                                {product.qty } x {option2.libelle}
-                                </Text>
-                                {/* <Text style={style.optionFormule}>
-                                {option2.prix_formule}€
-                              </Text> */}
-                              </View>
-                            )}
-                            {option3 && (
-                              <View style={style.optionStyle}>
-                                <Text style={style.text}>
-                                {product.qty } x {option3.libelle}
-                                </Text>
-                                {/* <Text style={style.optionFormule}>
-                                {option3.prix_formule}€
-                              </Text> */}
-                              </View>
-                            )}
-                          </View>
-                          <View style={style.orderPrices}>
-                            <Text style={style.oldPrice}>
-                              {product.unitPrice}€
-                            </Text>
-                            <Text style={style.newPrice}>
-                           {(product.unitPrice * 0.8 * product.quantity).toFixed(2)}€
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                    );
-                  } else if (type === 'antigaspi') {
+                   if (type === 'antigaspi') {
                     // si produit antigaspi
                     return (
                       <View key={key}>
@@ -320,7 +279,9 @@ const Orders = ({navigation}) => {
                           </Text>
                           <View style={style.orderPrices}>
                             <Text style={style.newPrice}>
-                              {(product.unitPrice)}€
+                              {/* {(product.unitPrice)}€ */}
+                              {formatPrice(product.unitPrice)}€
+
                             </Text>
                             <Text style={style.newPrice}>
                               {/* {product.unitPrice}€ */}
@@ -329,45 +290,7 @@ const Orders = ({navigation}) => {
                         </View>
                       </View>
                     );
-                  } else if (type === 'offreSUN') {
-                    // si baguette offreSUN
-                    return (
-                      <View key={key}>
-                        <View style={style.orderDetails}>
-                          <Text style={style.textWidth}>
-                            <OffreSun /> {product.quantity}x {libelle}
-                          </Text>
-                          <View style={style.orderPrices}>
-                            <Text style={style.newPrice}>
-                            {(product.unitPrice)}€
-                            </Text>
-                            <Text style={style.newPrice}>
-                            {/* {product.unitPrice}€ */}
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                    );
-                  } else {
-                    // Logique de rendu pour les produits classiques
-                    return (
-                      <View key={key}>
-                        <View style={style.orderDetails}>
-                          <Text style={style.textWidth}>
-                            {product.quantity}x {product.product}
-                          </Text>
-                          <View style={style.orderPrices}>
-                            <Text style={style.oldPrice}>
-                              {product.unitPrice * product.quantity}€
-                            </Text>
-                            <Text style={style.newPrice}>
-                              {(product.unitPrice * product.quantity * 0.8).toFixed(2)}€
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                    );
-                  }
+                  } 
                 })}
             </View>
 
@@ -432,6 +355,9 @@ const Orders = ({navigation}) => {
       0,
     );
 
+
+ 
+
     return (
       <>
         <View>
@@ -482,57 +408,7 @@ const Orders = ({navigation}) => {
                       } = product;
                       const key = product.id || index;
 
-                      // si on a une formule
-                      if (type === 'formule') {
-                        return (
-                          <View key={key}>
-                            <View style={style.orderFormule}>
-                              <View>
-                                <Text
-                                  style={{...style.text}}>
-                                  {product.quantity } x {libelle}
-                                </Text>
-                                {option1 && (
-                                  <View style={style.optionStyle}>
-                                    <Text style={style.text}>
-                                    {product.qty } x {option1.libelle}
-                                    </Text>
-                                    {/* <Text style={style.text}>
-                                    {option1.prix_unitaire}€
-                                  </Text> */}
-                                  </View>
-                                )}
-                                {option2 && (
-                                  <View style={style.optionStyle}>
-                                    <Text style={style.text}>
-                                    {product.quantity } x {option2.libelle}
-                                    </Text>
-                                    {/* <Text style={style.optionFormule}>
-                                    {option2.prix_formule}€
-                                  </Text> */}
-                                  </View>
-                                )}
-                                {option3 && (
-                                  <View style={style.optionStyle}>
-                                    <Text style={style.text}>
-                                    {product.quantity } x {option3.libelle}
-                                    </Text>
-                                    {/* <Text style={style.optionFormule}>
-                                    {option3.prix_formule}€
-                                  </Text> */}
-                                  </View>
-                                )}
-                              </View>
-                              <View style={style.orderPrices}>
-                                <Text style={style.oldPrice}>{product.unitPrice} €</Text>
-                                <Text style={style.newPrice}>
-                                {(product.unitPrice * 0.8 * product.quantity).toFixed(2)}€
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                        );
-                      } else if (type === 'antigaspi') {
+                      if (type === 'antigaspi') {
                         // si on a un produit antigaspi
                         return (
                           <View key={key}>
@@ -543,53 +419,16 @@ const Orders = ({navigation}) => {
                               </Text>
                               <View style={style.orderPrices}>
                                 <Text style={style.newPrice}>
-                                  {(product.unitPrice.toFixed(2))}€
+                                  {/* {(product.unitPrice.toFixed(2))}€ */}
+                                 {formatPrice(product.unitPrice)}€
+
                                 </Text>
-                                <Text style={style.newPrice}>
-                                {/* {(product.unitPrice )}€ */}
-                                </Text>
+                                
                               </View>
                             </View>
                           </View>
                         );
-                      } else if (type === 'offreSUN') {
-                        // si baguette gratuite
-                        return (
-                          <View key={key}>
-                            <View style={style.orderDetails}>
-                              <Text style={style.textWidth}>
-                                <OffreSun /> {product.quantity}x {product.product}
-                              </Text>
-                              <View style={style.orderPrices}>
-                                <Text style={style.newPrice}>
-                                  {(product.unitPrice)}€
-                                </Text>
-                                <Text style={style.newPrice}>
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                        );
-                      } else {
-                        // si on a un produit classqiue avec prix SUNcollaborateur
-                        return (
-                          <View key={key}>
-                            <View style={style.orderDetails}>
-                              <Text style={style.textWidth}>
-                                {product.quantity}x {product.product}
-                              </Text>
-                              <View style={style.orderPrices}>
-                                <Text style={style.oldPrice}>
-                                  {(product.unitPrice * product.quantity).toFixed(2)}€
-                                </Text>
-                                <Text style={style.newPrice}>
-                                  {(product.unitPrice  * product.quantity * 0.8).toFixed(2)}€
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                        );
-                      }
+                      } 
                     })}
                 </View>
               </View>

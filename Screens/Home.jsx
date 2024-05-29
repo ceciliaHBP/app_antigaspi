@@ -45,14 +45,15 @@ import {
   getAllStores,
   verifStockAntiGaspi,
   updateAntigaspiStock,
+  addStockAntigaspi,
+  getCartItemId
 } from '../CallApi/api';
 import {getStyle} from '../Fonctions/stylesFormule';
 import NoAntigaspi from '../components/NoAntigaspi';
 import ProductCard from '../components/ProductCard';
-import AddButton from '../components/AddButton';
 import NoProducts from '../components/NoProducts';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import {incrementhandler} from '../Fonctions/fonctions';
+import {decrementhandler, incrementhandler} from '../Fonctions/fonctions';
 import {useCountdown} from '../components/CountdownContext';
 
 const Home = ({navigation}) => {
@@ -66,14 +67,12 @@ const Home = ({navigation}) => {
   const [positionsY, setPositionsY] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
-  const [selectedStoreDetails, setSelectedStoreDetails] = useState({});
-  const [clickProducts, setclickProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [familyProductDetails, setFamilyProductDetails] = useState({});
   const familyProductIds = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 42, 44, 45,
+    41, 42, 42, 44, 45, 48, 49, 50
   ];
   const [categoryRefs, setCategoryRefs] = useState({});
   const [isAntigaspiAccessible, setIsAntiGaspiAccessible] = useState(false);
@@ -345,7 +344,7 @@ const Home = ({navigation}) => {
               return p;
             })
             .filter(p => p.stockantigaspi > 0),
-        ); // This line ensures products with zero stock are removed
+        ); 
       }
 
       resetCountdown();
@@ -364,8 +363,6 @@ const Home = ({navigation}) => {
       });
       refreshProducts();
     }
-    // déselection du produit
-    setSelectedProduct(null);
   };
 
   const refreshProducts = async () => {
@@ -376,6 +373,55 @@ const Home = ({navigation}) => {
       console.error('Erreur lors du rafraîchissement des produits:', error);
     }
   };
+
+  const handleRemoveToCart = async product => {
+
+    const cartItemId = await getCartItemId(
+      user.userId,
+      product.productId,
+      'antigaspi',
+      null
+    );
+
+    // console.log('cartItemId', cartItemId)
+    if ( cartItemId.length > 0){
+      //retrait du le panier
+      decrementhandler(
+        user.userId,
+        product.productId,
+        1,
+        'antigaspi',
+        cartItemId[0],
+        null
+      );
+      // // mise à jour du stock
+      const newStock = await addStockAntigaspi({...product, qty: 1});
+      // Nouveau stock
+      if (newStock !== undefined) {
+        setProducts(prevProducts =>
+          prevProducts
+            .map(p => {
+              if (p.productId === product.productId) {
+                return {...p, stockantigaspi: newStock};
+              }
+              return p;
+            })
+            .filter(p => p.stockantigaspi > 0),
+        ); 
+      }
+
+      await dispatch(getCart(user.userId));
+      await dispatch(getTotalCart(user.userId));
+
+      Toast.show({
+        type: 'success',
+        text1: `Produit "${product.libelle}" enlevé au panier`,
+      });
+    
+      refreshProducts();
+     } 
+  };
+
 
   return (
     <>
@@ -684,34 +730,16 @@ const Home = ({navigation}) => {
                                     qty={product.qty}
                                     stock={product.stockantigaspi}
                                     offre={product.offre}
-                                    showButtons={false}
+                                    showButtons={true}
                                     ingredients={product.ingredients}
                                     showPriceSun={false}
                                     overlayStyle={{
                                       backgroundColor: 'transparent',
                                     }}
-                                  />
-                                  {selectedProduct?.productId ===
-                                    product.productId && (
-                                    <Check color={colors.color9} />
-                                  )}
-                                  <View
-                                    style={{
-                                      position: 'absolute',
-                                      top: 0,
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                    }}>
-                                    {selectedProduct?.productId ===
-                                      product.productId && (
-                                      <AddButton
-                                        onPress={() => handleAddToCart(product)}
-                                      />
-                                    )}
-                                  </View>
+                                    addTocart={() => handleAddToCart(product)}
+                                    item={product}
+                                    removeTocart={() => handleRemoveToCart(product)}
+                                    />
 
                                   <View style={styles.stockantigaspi}>
                                     <Cloche />
