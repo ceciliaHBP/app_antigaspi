@@ -46,6 +46,7 @@
 		1B8697102BFCA32D00D17B53 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B8696EE2BFCA32D00D17B53 /* MaterialIcons.ttf */; };
 		1B8697112BFCA32D00D17B53 /* Postino Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B8696EF2BFCA32D00D17B53 /* Postino Italic.ttf */; };
 		1B8697142BFCCD1C00D17B53 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1B8697132BFCCD1C00D17B53 /* PrivacyInfo.xcprivacy */; };
+		1B8697172C00C9A700D17B53 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B8697162C00C9A700D17B53 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		887663DA1931DC100FA704A3 /* Pods_mobile_antigaspi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D665D650016680B566DF9BA2 /* Pods_mobile_antigaspi.framework */; };
 		EB2A39ECD91CB5F6BAE2DFD2 /* Pods_mobile_antigaspi_mobile_antigaspiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C12BF45AF9F96E60DA7ECF2 /* Pods_mobile_antigaspi_mobile_antigaspiTests.framework */; };
@@ -110,6 +111,8 @@
 		1B8696EE2BFCA32D00D17B53 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		1B8696EF2BFCA32D00D17B53 /* Postino Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Postino Italic.ttf"; sourceTree = "<group>"; };
 		1B8697132BFCCD1C00D17B53 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		1B8697152C00C79800D17B53 /* mobile_antigaspi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = mobile_antigaspi.entitlements; path = mobile_antigaspi/mobile_antigaspi.entitlements; sourceTree = "<group>"; };
+		1B8697162C00C9A700D17B53 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1EF4FF6F4034430494686903 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = ../assets/fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
 		208B3D9178A84A4F93A55D46 /* Montserrat Black 900.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat Black 900.ttf"; path = "../assets/fonts/Montserrat Black 900.ttf"; sourceTree = "<group>"; };
 		2532B518FFE64D64AC7478B6 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = ../assets/fonts/Ionicons.ttf; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 		13B07FAE1A68108700A75B9A /* mobile_antigaspi */ = {
 			isa = PBXGroup;
 			children = (
+				1B8697152C00C79800D17B53 /* mobile_antigaspi.entitlements */,
 				1B8696CD2BFCA32D00D17B53 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -198,6 +202,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				1B8697132BFCCD1C00D17B53 /* PrivacyInfo.xcprivacy */,
+				1B8697162C00C9A700D17B53 /* GoogleService-Info.plist */,
 			);
 			name = mobile_antigaspi;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				1B8696F02BFCA32D00D17B53 /* Montserrat ExtraBold 800.ttf in Resources */,
 				1B8697072BFCA32D00D17B53 /* EvilIcons.ttf in Resources */,
 				1B8697052BFCA32D00D17B53 /* Montserrat Bold 700.ttf in Resources */,
+				1B8697172C00C9A700D17B53 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				1B86970C2BFCA32D00D17B53 /* Montserrat Light Italic 300.ttf in Resources */,
 				1B8696F12BFCA32D00D17B53 /* Fontisto.ttf in Resources */,
@@ -704,6 +710,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = mobile_antigaspi/mobile_antigaspi.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = mobile_antigaspi/Info.plist;
@@ -731,6 +738,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = mobile_antigaspi/mobile_antigaspi.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = mobile_antigaspi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
